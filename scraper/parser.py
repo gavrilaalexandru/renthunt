@@ -14,6 +14,8 @@ def extract_flat_details(listings):
         name = "N/A"
 
     try:
+        # price_element = listings.find("p", {"data-testid": "ad-price"})
+        # price = price_element.text.strip()
         price = listings.select_one('p[data-testid="ad-price"]').text.strip()
     except (AttributeError, TypeError):
         price = "N/A"
