@@ -26,6 +26,9 @@ def scrape_olx():
             continue
 
         listings_html = parser.extract_flat_listings(response.text)
+        if not listings_html:
+            print("Can't parse the listings")
+            return None
         for listing in listings_html:
             details = parser.extract_flat_details(listing)
             all_listings.append(details)
