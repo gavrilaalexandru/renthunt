@@ -22,9 +22,13 @@ def extract_flat_details(listings):
         price = "N/A"
 
     try:
-        link = listings.get("href")
-        if not link.startswith("http"):
-            link = "https://www.olx.ro" + link
+        link_tag = listings.select_one("a.css-qo0cxu")
+        if link_tag and link_tag.has_attr("href"):
+            link = link_tag["href"]
+            if not link.startswith("http"):
+                link = "https://www.olx.ro" + link
+        else:
+            link = "N/A"
     except (AttributeError, TypeError):
         link = "N/A"
 
