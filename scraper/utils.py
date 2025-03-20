@@ -29,4 +29,4 @@ def save_to_csv(data, filename):
 
 
 def generate_timestamp():
-    return datetime.now().strftime("%d%m%Y_%H:%M:%S")
+    return datetime.now().strftime("%d%m%Y_%H%M%S")
