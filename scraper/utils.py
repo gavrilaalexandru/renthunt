@@ -6,7 +6,10 @@ from datetime import datetime
 
 
 def create_dirs():
-    os.makedirs("data", exist_ok=True)
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    data_folder = "data"
+    new_dir_path = os.path.join(root_dir, data_folder)
+    os.makedirs(data_folder, exist_ok=True)
 
 
 def random_delay(min_seconds=1, max_seconds=3):
