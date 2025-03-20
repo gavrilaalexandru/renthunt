@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def extract_flat_listings(html_content):
     soup = BeautifulSoup(html_content, "html.parser")
-    listings = soup.select("a.css-qo0cxu")
+    listings = soup.select("div.css-j0t2x2 > div.css-l9drzq")
     return listings
 
 
@@ -16,7 +16,8 @@ def extract_flat_details(listings):
     try:
         # price_element = listings.find("p", {"data-testid": "ad-price"})
         # price = price_element.text.strip()
-        price = listings.select_one('p[data-testid="ad-price"]').text.strip()
+        # price = listings.select_one('p[data-testid="ad-price"]').text.strip()
+        price = listings.select_one("p.css-6j1qjp").text.strip()
     except (AttributeError, TypeError):
         price = "N/A"
 
