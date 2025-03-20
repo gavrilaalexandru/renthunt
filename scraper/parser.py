@@ -14,17 +14,18 @@ def extract_flat_details(listings):
         name = "N/A"
 
     try:
-        price = listings.select_one("p.css-6j1qjp").text.strip()
+        price = listings.select_one('p[data-testid="ad-price"]').text.strip()
     except (AttributeError, TypeError):
         price = "N/A"
 
     try:
-        link = listings["href"]
-        if not link.startwith("http"):
+        link = listings.get("href")
+        if not link.startswith("http"):
             link = "https://www.olx.ro" + link
     except (AttributeError, TypeError):
         link = "N/A"
 
+    print(f"Extracted {name}, {price}, {link}")
     return {"name": name, "price": price, "link": link}
 
 
