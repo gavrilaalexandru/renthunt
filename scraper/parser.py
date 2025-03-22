@@ -9,7 +9,9 @@ def extract_flat_listings(html_content):
 
 def extract_flat_details(listings):
     try:
-        name = listings.select_one("h4.css-1g61gc2").text.strip()
+        name_element = listings.select_one("h4.css-1g61gc2")
+        if name_element:
+            name = name_element.text.strip().replace(" | ", " ")
     except (AttributeError, TypeError):
         name = "N/A"
 
