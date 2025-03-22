@@ -12,6 +12,7 @@ def extract_flat_details(listings):
         name_element = listings.select_one("h4.css-1g61gc2")
         if name_element:
             name = name_element.text.strip().replace(" | ", " ")
+            name = name.replace(",", " ")
     except (AttributeError, TypeError):
         name = "N/A"
 
