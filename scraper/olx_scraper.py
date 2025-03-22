@@ -11,10 +11,11 @@ all_listings = []
 format_choice = ""
 
 
-def get_project_dir():
+def get_data_dir():
     current_script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(current_script_dir)
-    return project_root
+    data_dir = os.path.join(project_root, "Data")
+    return data_dir
 
 
 def signal_handler(signal, frame):
@@ -23,12 +24,11 @@ def signal_handler(signal, frame):
     if all_listings:
         utils.create_dirs()
 
-        project_root = get_project_dir()
-        data_dir = os.path.join(project_root, "Data")
+        data_dir = get_data_dir()
 
         timestamp = utils.generate_timestamp()
-        csv_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.csv")
-        excel_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.xlsx")
+        csv_filename = os.path.join(data_dir, f"olx_listings_{timestamp}.csv")
+        excel_filename = os.path.join(data_dir, f"olx_listings_{timestamp}.xlsx")
 
         if format_choice == "1":
             utils.save_to_csv(all_listings, csv_filename)
@@ -60,8 +60,7 @@ def scrape_olx():
     signal.signal(signal.SIGINT, signal_handler)
 
     utils.create_dirs()
-    project_root = get_project_dir()
-    data_dir = os.path.join(project_root, "Data")
+    data_dir = get_data_dir()
     all_listings = []
 
     response = requests.get(BASE_URL, headers=HEADERS)
@@ -112,8 +111,8 @@ def scrape_olx():
             utils.random_delay(MIN_DELAY, MAX_DELAY)
 
         timestamp = utils.generate_timestamp()
-        csv_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.csv")
-        excel_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.xlsx")
+        csv_filename = os.path.join(data_dir, f"olx_listings_{timestamp}.csv")
+        excel_filename = os.path.join(data_dir, f"olx_listings_{timestamp}.xlsx")
 
         if format_choice == "1":
             utils.save_to_csv(all_listings, csv_filename)
