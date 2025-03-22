@@ -47,11 +47,26 @@ def scrape_olx():
 
         utils.random_delay(MIN_DELAY, MAX_DELAY)
 
-    timestamp = utils.generate_timestamp()
-    filename = f"data/olx_listings_{timestamp}.csv"
-    utils.save_to_csv(all_listings, filename)
+    while True:
+        format_choice = input("Save as (1) CSV, (2) Excel, (3) Both: ").strip()
+        if format_choice in ["1", "2", "3"]:
+            break
+        else:
+            print("Invalid choice, please enter 1, 2 or 3")
 
-    print(f"SCRAPING COMPLETED! Saved {len(all_listings)} ads in {filename}")
+    timestamp = utils.generate_timestamp()
+    csv_filename = f"Data/olx_listings_{timestamp}.csv"
+    excel_filename = f"Data/olx_listings_{timestamp}.xlsx"
+
+    if format_choice in ["1", "3"]:
+        utils.save_to_csv(all_listings, csv_filename)
+        print(f"Saved {len(all_listings)} ads in {csv_filename}")
+
+    if format_choice in ["2", "3"]:
+        utils.save_to_excel(all_listings, excel_filename)
+        print(f"Saved {len(all_listings)} ads in {excel_filename}")
+
+    print(f"SCRAPING COMPLETED! Processed {len(all_listings)} ads.")
 
 
 if __name__ == "__main__":
