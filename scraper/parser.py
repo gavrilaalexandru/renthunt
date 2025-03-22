@@ -17,9 +17,21 @@ def extract_flat_details(listings):
         # price_element = listings.find("p", {"data-testid": "ad-price"})
         # price = price_element.text.strip()
         # price = listings.select_one('p[data-testid="ad-price"]').text.strip()
-        price = listings.select_one("p.css-6j1qjp").text.strip()
+        price_element = listings.select_one("p.css-6j1qjp")
+        if price_element:
+            negotiable_span = price_element.select_one("span.css-1hc4lz9")
+            if negotiable_span:
+                negotiable_span.extract()
+                negotiable = True
+            else:
+                negotiable = False
+            price = price_element.get_text(strip=True)
+        else:
+            price = "N/A"
+            negotiable = False
     except (AttributeError, TypeError):
         price = "N/A"
+        negotiable = False
 
     try:
         link_tag = listings.select_one("a.css-qo0cxu")
@@ -33,7 +45,7 @@ def extract_flat_details(listings):
         link = "N/A"
 
     print(f"Extracted {name}, {price}, {link}")
-    return {"name": name, "price": price, "link": link}
+    return {"name": name, "price": price, "negotiable": negotiable, "link": link}
 
 
 def extract_pagination_info(html_content):
