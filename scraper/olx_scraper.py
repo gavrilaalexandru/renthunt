@@ -1,6 +1,8 @@
 import requests
 import utils
 import parser
+import sys
+import signal
 from config import BASE_URL, HEADERS, MIN_DELAY, MAX_DELAY
 
 
@@ -28,6 +30,13 @@ def scrape_olx():
         except ValueError:
             print("Invalid input, please enter a valid integer")
 
+    while True:
+        format_choice = input("Save as (1) CSV, (2) Excel, (3) Both: ").strip()
+        if format_choice in ["1", "2", "3"]:
+            break
+        else:
+            print("Invalid choice, please enter 1, 2 or 3")
+
     for page in range(1, user_pages + 1):
         url = f"{BASE_URL}?page={page}"
         print(f"Trying to access page {page}: {url}")
@@ -46,13 +55,6 @@ def scrape_olx():
             all_listings.append(details)
 
         utils.random_delay(MIN_DELAY, MAX_DELAY)
-
-    while True:
-        format_choice = input("Save as (1) CSV, (2) Excel, (3) Both: ").strip()
-        if format_choice in ["1", "2", "3"]:
-            break
-        else:
-            print("Invalid choice, please enter 1, 2 or 3")
 
     timestamp = utils.generate_timestamp()
     csv_filename = f"Data/olx_listings_{timestamp}.csv"
