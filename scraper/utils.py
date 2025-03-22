@@ -70,7 +70,6 @@ def save_to_excel(data, filename):
         worksheet.set_column(column_idx, column_idx, column_len + 2)
 
     writer.close()
-    print(f"Data saved to Excel: {filename}")
 
 
 def generate_timestamp():
