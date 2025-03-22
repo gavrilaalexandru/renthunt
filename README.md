@@ -67,6 +67,15 @@ The main script that executes the web scraping process:
 3. **View the Extracted Data**
    The scraped data is saved in the `Data/` directory in CSV and/or Excel formats.
 
+## Example Output
+
+| Name                      | Price   | Negotiable      | Link                                         |
+|---------------------------|---------|----------------|----------------------------------------------|
+| Apartament 2 camere Titan | 450 EUR | Negotiable     | [View Listing](https://www.olx.ro/d/oferta/123456789/) |
+| Garsonieră Militari       | 300 EUR | Non-negotiable | [View Listing](https://www.olx.ro/d/oferta/987654321/) |
+| Studio Central            | 500 EUR | Negotiable     | [View Listing](https://www.olx.ro/d/oferta/135792468/) |
+
+
 ## Error Handling & Interruption
 - If the script is interrupted (CTRL+C), it will save the collected data before exiting.
 - If a page request fails, it will display an error message and continue with the next page.
