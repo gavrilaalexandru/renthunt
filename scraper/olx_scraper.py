@@ -16,7 +16,19 @@ def scrape_olx():
     max_pages = parser.extract_pagination_info(response.text)
     print(f"Total no pages: {max_pages}")
 
-    for page in range(1, max_pages + 1):
+    while True:
+        try:
+            user_pages = int(
+                input(f"How many pages do you want to scrape? (max {max_pages}): ")
+            )
+            if 1 <= user_pages <= max_pages:
+                break
+            else:
+                print(f"Please enter a value between 1 and {max_pages}")
+        except ValueError:
+            print("Invalid input, please enter a valid integer")
+
+    for page in range(1, user_pages + 1):
         url = f"{BASE_URL}?page={page}"
         print(f"Trying to access page {page}: {url}")
 
