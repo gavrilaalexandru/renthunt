@@ -3,6 +3,7 @@ import utils
 import parser
 import sys
 import signal
+import os
 from config import BASE_URL, HEADERS, MIN_DELAY, MAX_DELAY
 
 
@@ -10,13 +11,24 @@ all_listings = []
 format_choice = ""
 
 
+def get_project_dir():
+    current_script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(current_script_dir)
+    return project_root
+
+
 def signal_handler(signal, frame):
     print("Program interrupted, saving the data that has been collected so far")
 
     if all_listings:
+        utils.create_dirs()
+
+        project_root = get_project_dir()
+        data_dir = os.path.join(project_root, "Data")
+
         timestamp = utils.generate_timestamp()
-        csv_filename = f"Data/olx_listings_{timestamp}.csv"
-        excel_filename = f"Data/olx_listings_{timestamp}.xlsx"
+        csv_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.csv")
+        excel_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.xlsx")
 
         if format_choice == "1":
             utils.save_to_csv(all_listings, csv_filename)
@@ -48,6 +60,8 @@ def scrape_olx():
     signal.signal(signal.SIGINT, signal_handler)
 
     utils.create_dirs()
+    project_root = get_project_dir()
+    data_dir = os.path.join(project_root, "Data")
     all_listings = []
 
     response = requests.get(BASE_URL, headers=HEADERS)
@@ -98,8 +112,8 @@ def scrape_olx():
             utils.random_delay(MIN_DELAY, MAX_DELAY)
 
         timestamp = utils.generate_timestamp()
-        csv_filename = f"Data/olx_listings_{timestamp}.csv"
-        excel_filename = f"Data/olx_listings_{timestamp}.xlsx"
+        csv_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.csv")
+        excel_filename = os.path.join(data_dir, f"Data/olx_listings_{timestamp}.xlsx")
 
         if format_choice == "1":
             utils.save_to_csv(all_listings, csv_filename)
