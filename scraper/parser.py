@@ -44,7 +44,7 @@ def extract_flat_details(listings):
     except (AttributeError, TypeError):
         link = "N/A"
 
-    print(f"Extracted {name}, {price}, {link}")
+    print(f"Extracted {name}, {price}, {negotiable}, {link}")
     return {"name": name, "price": price, "negotiable": negotiable, "link": link}
 
 
