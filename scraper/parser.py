@@ -13,6 +13,8 @@ def extract_flat_details(listings):
         if name_element:
             name = name_element.text.strip().replace(" | ", " ")
             name = name.replace(",", " ")
+        else:
+            name = "N/A"
     except (AttributeError, TypeError):
         name = "N/A"
 
