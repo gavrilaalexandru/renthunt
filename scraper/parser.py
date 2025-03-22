@@ -22,16 +22,16 @@ def extract_flat_details(listings):
             negotiable_span = price_element.select_one("span.css-1hc4lz9")
             if negotiable_span:
                 negotiable_span.extract()
-                negotiable = True
+                negotiable = "negotiable"
             else:
-                negotiable = False
+                negotiable = "non-negotiable"
             price = price_element.get_text(strip=True)
         else:
             price = "N/A"
-            negotiable = False
+            negotiable = "non-negotiable"
     except (AttributeError, TypeError):
         price = "N/A"
-        negotiable = False
+        negotiable = "non-negotiable"
 
     try:
         link_tag = listings.select_one("a.css-qo0cxu")
