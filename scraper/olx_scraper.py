@@ -58,15 +58,24 @@ def scrape_olx():
     csv_filename = f"Data/olx_listings_{timestamp}.csv"
     excel_filename = f"Data/olx_listings_{timestamp}.xlsx"
 
-    if format_choice in ["1", "3"]:
+    if format_choice == "1":
         utils.save_to_csv(all_listings, csv_filename)
-        print(f"Saved {len(all_listings)} ads in {csv_filename}")
+        print(
+            f"SCRAPING COMPLETED! Processed {len(all_listings)} ads | Saved as CSV in {csv_filename}"
+        )
 
-    if format_choice in ["2", "3"]:
+    if format_choice == "2":
         utils.save_to_excel(all_listings, excel_filename)
-        print(f"Saved {len(all_listings)} ads in {excel_filename}")
+        print(
+            f"SCRAPING COMPLETED! Processed {len(all_listings)} ads | Saved as EXCEL in {excel_filename}"
+        )
 
-    print(f"SCRAPING COMPLETED! Processed {len(all_listings)} ads.")
+    if format_choice == "3":
+        utils.save_to_excel(all_listings, excel_filename)
+        utils.save_to_csv(all_listings, csv_filename)
+        print(
+            f"SCRAPING COMPLETED! Processed {len(all_listings)} ads | Saved as CSV in {csv_filename} and as EXCEL in {excel_filename}"
+        )
 
 
 if __name__ == "__main__":
