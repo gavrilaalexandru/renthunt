@@ -37,7 +37,7 @@ def signal_handler(signal, frame):
                 f"SCRAPING INTERRUPTED! Processed {len(all_listings)} ads | Saved as CSV in {csv_filename} and as EXCEL in {excel_filename}"
             )
     else:
-        print("No data found")
+        print("No data has been collected so far, nothing to save")
 
     sys.exit(0)
 
